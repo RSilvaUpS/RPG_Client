@@ -1,1 +1,9 @@
-<p>hero-list works!</p>
+<div *ngFor="let hero of heroes" style="float:left; width: 33%;">
+  <img src="{{hero.portrait}}" style="width: 200px;"><br>
+  Name: {{hero.name}}<br>
+  Description : {{hero.description}} <br>
+  Rating: {{hero.rating}}<br>
+  Class: {{hero.heroClass}}
+  <p></p>
+</div>
+
