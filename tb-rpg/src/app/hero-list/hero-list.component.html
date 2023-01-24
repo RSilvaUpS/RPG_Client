@@ -1,9 +1,18 @@
-<div *ngFor="let hero of heroes" style="float:left; width: 33%;">
-  <img src="{{hero.portrait}}" style="width: 200px;"><br>
-  Name: {{hero.name}}<br>
-  Description : {{hero.description}} <br>
-  Rating: {{hero.rating}}<br>
-  Class: {{hero.heroClass}}
-  <p></p>
+<div *ngFor="let hero of heroes" style="float:left; margin: 5px; margin-bottom: 10px;">
+  <div class="card" style="width: 18rem;">
+    <img src="{{hero.portrait}}" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">{{hero.name}}</h5>
+      <p class="card-text">{{hero.description}}</p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Rating : {{hero.rating}}</li>
+      <li class="list-group-item">{{hero.heroClass}}</li>
+
+    </ul>
+    <div class="card-body">
+      <a href="/hero/{{hero.id}}" class="card-link">Hero info</a>
+    </div>
+  </div>
 </div>
 

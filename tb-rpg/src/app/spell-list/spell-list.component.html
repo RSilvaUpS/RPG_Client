@@ -1,1 +1,19 @@
-<p>spell-list works!</p>
+<div *ngFor="let spell of spells" style="float:left; margin: 5px; margin-bottom: 10px;">
+  <div class="card" style="width: 18rem;">
+    <img src="{{spell.portrait}}" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">{{spell.name}}</h5>
+      <p class="card-text">{{spell.description}}</p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">{{spell.spellType}} Spell</li>
+      <li class="list-group-item">Spell cost: {{spell.manaCost}} MP</li>
+      <li class="list-group-item">Damage Range: {{spell.damageMin}} - {{spell.damageMax}}</li>
+    </ul>
+    <div class="card-body">
+      <a href="/hero/{{spell.id}}" class="card-link">Spell info</a>
+    </div>
+  </div>
+</div>
+
+
