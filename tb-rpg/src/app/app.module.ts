@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { HeroListComponent } from './hero-list/hero-list.component';
 import { SpellListComponent } from './spell-list/spell-list.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { GameComponentComponent } from './game-component/game-component.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
     HeroListComponent,
     SpellListComponent,
     NavBarComponent,
+    GameComponentComponent,
   ],
   imports: [
     BrowserModule,
