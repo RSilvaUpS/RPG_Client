@@ -1,57 +1,152 @@
-<div *ngFor="let hero of heroes" style="float:left; margin: 5px; margin-bottom: 10px;">
-  <div iclass="card" style="width: 18rem;" *ngIf="isListVisible">
-    <img src="{{hero.portrait}}" class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">{{hero.name}}</h5>
-      <p class="card-text">Rating : {{hero.rating}}</p>
-    </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">HP : {{hero.hp}}</li>
-      <li class="list-group-item">MP {{hero.mp}}</li>
-      <li class="list-group-item">Armor : {{hero.armor}}</li>
-      <li class="list-group-item">Known Spells:
-        <ol>
-          <li class=" text-center" *ngFor="let spell of hero.castableSpells">Known Spell: {{spell.name}} ({{spell.damageMin}} - {{spell.damageMax}})
-            SpellType: {{spell.spellType}}</li>
-        </ol>
-
-      </li>
-
-
-
-    </ul>
-    <div class="card-body text-center">
-      <button type="button" class="btn btn-outline-primary" (click)="heroChosen(hero.id)">Choose this hero</button>
+<div>
+  <div
+    *ngFor="let hero of heroes"
+    style="
+      float: left;
+      margin: 5px;
+      margin-bottom: 5px;
+      border-radius: 5px;
+      border: 2px solid darkblue;
+    "
+  >
+    <div iclass="card" style="width: 18rem" *ngIf="isListVisible">
+      <img src="{{ hero.portrait }}" class="card-img-top" alt="..." />
+      <div class="card-body">
+        <h5 class="card-title">{{ hero.name }}</h5>
+        <p class="card-text">Rating : {{ hero.rating }}</p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">HP : {{ hero.hp }}</li>
+        <li class="list-group-item">MP {{ hero.mp }}</li>
+        <li class="list-group-item">Armor : {{ hero.armor }}</li>
+        <li class="list-group-item">
+          Known Spells:
+          <ol>
+            <li class="text-center" *ngFor="let spell of hero.castableSpells">
+              Known Spell: {{ spell.name }} ({{ spell.damageMin }} -
+              {{ spell.damageMax }}) SpellType: {{ spell.spellType }}
+            </li>
+          </ol>
+        </li>
+      </ul>
+      <div class="card-body text-center">
+        <button
+          type="button"
+          class="btn btn-outline-primary"
+          (click)="heroChosen(hero.id)"
+        >
+          Choose this hero
+        </button>
+      </div>
     </div>
   </div>
-</div>
 
-<div style="margin-left: 10%">
-  <div iclass="card" style="width: 18rem;" *ngIf="heroisChosen">
-    <img src="{{chosenHero.portrait}}" class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">{{chosenHero.name}}</h5>
-      <p class="card-text">Rating : {{chosenHero.rating}}</p>
+  <div style="float: left; margin-left: 6%">
+    <div iclass="card" style="width: 18rem" *ngIf="heroisChosen">
+      <img src="{{ chosenHero.portrait }}" class="card-img-top" alt="..." />
+      <div class="card-body">
+        <h5 class="card-title">{{ chosenHero.name }}</h5>
+        <p class="card-text">Rating : {{ chosenHero.rating }}</p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <div class="progress">
+            <div
+              class="progress-bar bg-danger"
+              role="progressbar"
+              [style.width]="(currentHeroHP / chosenHero.hp) * 100 + '%'"
+              [attr.aria-valuenow]="25"
+              aria-valuemin="0"
+              [attr.aria-valuemax]="chosenHero.hp"
+            >
+              {{ currentHeroHP }} / {{ chosenHero.hp }}
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="progress">
+            <div
+              class="progress-bar"
+              role="progressbar"
+              [style.width]="(currentHeroMP / chosenHero.mana) * 100 + '%'"
+              [attr.aria-valuenow]="currentHeroMP / chosenHero.mana"
+              aria-valuemin="0"
+              [attr.aria-valuemax]="chosenHero.mana"
+            >
+              {{ currentHeroMP }} / {{ chosenHero.mana }}
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">Armor : {{ chosenHero.armor }}</li>
+        <li class="list-group-item">
+          Known Spells:
+          <ol>
+            <li
+              class="text-center"
+              *ngFor="let spell of chosenHero.castableSpells"
+            >
+              Known Spell: {{ spell.name }} ({{ spell.damageMin }} -
+              {{ spell.damageMax }}) SpellType: {{ spell.spellType }}
+            </li>
+          </ol>
+        </li>
+      </ul>
     </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">
-        <div class="progress">
-          <div class="progress-bar bg-danger" role="progressbar" [style.width]="currentHeroHP/chosenHero.hp*100 + '%'" aria-valuenow="25" aria-valuemin="0" aria-valuemax="">{{currentHeroHP}} / {{chosenHero.hp}}</div>
-        </div>
-    </li>
-      <li class="list-group-item">
-        <div class="progress">
-          <div class="progress-bar" role="progressbar" [style.width]="currentHeroMP/chosenHero.mana*100 + '%'" aria-valuenow="25" aria-valuemin="0" aria-valuemax="">{{currentHeroMP}} / {{chosenHero.mana}}</div>
-        </div>
-      </li>
-      <li class="list-group-item">Armor : {{chosenHero.armor}}</li>
-      <li class="list-group-item">Known Spells:
-        <ol>
-          <li class=" text-center" *ngFor="let spell of chosenHero.castableSpells">Known Spell: {{spell.name}} ({{spell.damageMin}} - {{spell.damageMax}})
-            SpellType: {{spell.spellType}}</li>
-        </ol>
+  </div>
 
-      </li>
-    </ul>
+  <div
+    style="float: left; margin-left: 8%; height: 100%; margin-top: 20%"
+  >
+    <div iclass="card" style="width: 6rem" *ngIf="heroisChosen">VS.</div>
+  </div>
+
+  <div style="float: left; margin-left: 6%">
+    <div iclass="card" style="width: 18rem" *ngIf="heroisChosen">
+      <img src="{{ enemy.portrait }}" class="card-img-top" alt="..." />
+      <div class="card-body">
+        <h5 class="card-title">{{ enemy.name }}</h5>
+        <p class="card-text">Rating : {{ enemy.rating }}</p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <div class="progress">
+            <div
+              class="progress-bar bg-danger"
+              role="progressbar"
+              [style.width]="(currentEnemyHP / enemy.hp) * 100 + '%'"
+              [attr.aria-valuenow]="25"
+              aria-valuemin="0"
+              [attr.aria-valuemax]="enemy.hp"
+            >
+              {{ currentEnemyHP }} / {{ enemy.hp }}
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="progress">
+            <div
+              class="progress-bar"
+              role="progressbar"
+              [style.width]="(currentEnemyMP / enemy.mana) * 100 + '%'"
+              [attr.aria-valuenow]="currentEnemyMP / enemy.mana"
+              aria-valuemin="0"
+              [attr.aria-valuemax]="enemy.mana"
+            >
+              {{ currentEnemyMP }} / {{ enemy.mana }}
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">Armor : {{ enemy.armor }}</li>
+        <li class="list-group-item">
+          Known Spells:
+          <ol>
+            <li class="text-center" *ngFor="let spell of enemy.castableSpells">
+              Known Spell: {{ spell.name }} ({{ spell.damageMin }} -
+              {{ spell.damageMax }}) SpellType: {{ spell.spellType }}
+            </li>
+          </ol>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>

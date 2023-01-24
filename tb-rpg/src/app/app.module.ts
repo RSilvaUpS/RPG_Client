@@ -8,6 +8,8 @@ import { HeroListComponent } from './hero-list/hero-list.component';
 import { SpellListComponent } from './spell-list/spell-list.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { GameComponentComponent } from './game-component/game-component.component';
+import { HomeComponent } from './home/home.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,8 @@ import { GameComponentComponent } from './game-component/game-component.componen
     SpellListComponent,
     NavBarComponent,
     GameComponentComponent,
+    HomeComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
