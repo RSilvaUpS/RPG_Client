@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="isListVisible">
   <div
     *ngFor="let hero of heroes"
     style="
@@ -9,7 +9,7 @@
       border: 2px solid darkblue;
     "
   >
-    <div iclass="card" style="width: 18rem" *ngIf="isListVisible">
+    <div iclass="card" style="width: 18rem">
       <img src="{{ hero.portrait }}" class="card-img-top" alt="..." />
       <div class="card-body">
         <h5 class="card-title">{{ hero.name }}</h5>
@@ -41,4 +41,5 @@
     </div>
   </div>
 
+</div>
 <app-battle-comp [hero]="chosenHero" *ngIf="heroisChosen"></app-battle-comp>

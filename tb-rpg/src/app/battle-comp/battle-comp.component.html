@@ -12,13 +12,19 @@
             aria-valuemin="0"
             [attr.aria-valuemax]="hero.hp"
           >
-          <div
-          [style.width]="(currentHeroHP / hero.hp) * 100 + '%'"
-          class ="progress-bar"
-          [ngClass]="{'bg-success' : (currentHeroHP / hero.hp * 100) > 50, 'bg-danger' : (currentHeroHP / hero.hp * 100) < 26, 'bg-warning' : (currentHeroHP / hero.hp * 100) < 51 && currentHeroHP / hero.hp * 100 > 25}"
-          >
-            {{ currentHeroHP }} / {{ hero.hp }}
-          </div>
+            <div
+              [style.width]="(currentHeroHP / hero.hp) * 100 + '%'"
+              class="progress-bar"
+              [ngClass]="{
+                'bg-success': (currentHeroHP / hero.hp) * 100 > 50,
+                'bg-danger': (currentHeroHP / hero.hp) * 100 < 26,
+                'bg-warning':
+                  (currentHeroHP / hero.hp) * 100 < 51 &&
+                  (currentHeroHP / hero.hp) * 100 > 25
+              }"
+            >
+              {{ currentHeroHP }} / {{ hero.hp }}
+            </div>
           </div>
         </div>
       </li>
@@ -36,21 +42,45 @@
           </div>
         </div>
       </li>
-      <li class="list-group-item text-center" ><button class="btn btn-outline-primary" onclick="attack(hero.attack)">Attack</button></li>
+      <li class="list-group-item text-center">
+        <button
+          class="btn btn-outline-primary"
+          [disabled]="gameWin || gameLoss"
+          (click)="attack(true)"
+        >
+          Attack
+        </button>
+      </li>
       <li class="list-group-item text-center">
         Spells:
-          <div  *ngFor="let spell of hero.castableSpells"          >
-            <button class="in-game-spell btn btn-outline-primary" onclick="castSpell(spell.name, spell.mana, spell.damageMin, spell.damageMax, hero.spellModifier)" [disabled]="currentHeroMP < spell.manaCost">{{spell.name}} <span *ngIf=""></span></button>
-          </div>
+        <div *ngFor="let spell of hero.castableSpells">
+          <button
+            class="in-game-spell btn btn-outline-primary"
+            (click)="castSpell(spell.id, true)"
+            [disabled]="currentHeroMP < spell.manaCost || gameWin || gameLoss"
+          >
+            {{ spell.name }} <span *ngIf=""></span>
+          </button>
+        </div>
       </li>
     </ul>
   </div>
 </div>
 
-<div
-  style="float: left; margin-left: 8%; height: 100%; margin-top: 20%"
->
-  <div iclass="card" style="width: 6rem">VS.</div>
+<div style="float: left; margin-left: 8%; height: 100%; margin-top: 20%; text-align: center;">
+  <div iclass="card" style="width: 18rem" *ngIf="!gameWin || !gameLoss">VS.</div>
+  <p></p>
+  <div iclass="card" style="width: 18rem" *ngIf="userActionNumber != 0 && !gameWin && !gameLoss">
+    You used {{ userAction }} and modified {{ userActionNumber }} HP
+    <p></p>
+    The enemy used {{enemyAction}} and modified {{enemyActionNumber}} HP
+  </div>
+  <div iclass="card" style="width: 18rem" *ngIf="gameWin || gameLoss">
+    <h3>{{title}}</h3>
+    <p><h5>{{message}}</h5>
+    <p><button class="btn btn-primary" onClick="window.location.reload();">GO AGANE</button>
+
+  </div>
 </div>
 
 <div style="float: left; margin-left: 6%">
@@ -67,27 +97,19 @@
             aria-valuemin="0"
             [attr.aria-valuemax]="enemy.hp"
           >
-          <div
-          [style.width]="(currentEnemyHP / enemy.hp) * 100 + '%'"
-          class ="progress-bar"
-          [ngClass]="{'bg-success' : (currentEnemyHP / enemy.hp * 100) > 50, 'bg-danger' : (currentEnemyHP / enemy.hp * 100) < 26, 'bg-warning' : (currentEnemyHP / enemy.hp * 100) < 51 && currentEnemyHP / enemy.hp * 100 > 25}"
-          >
-            {{ currentEnemyHP }} / {{ enemy.hp }}
-          </div>
-          </div>
-        </div>
-      </li>
-      <li class="list-group-item">
-        <div class="progress">
-          <div
-            class="progress-bar"
-            role="progressbar"
-            [style.width]="(currentEnemyMP / enemy.mana) * 100 + '%'"
-            [attr.aria-valuenow]="currentEnemyMP / enemy.mana"
-            aria-valuemin="0"
-            [attr.aria-valuemax]="enemy.mana"
-          >
-            {{ currentEnemyMP }} / {{ enemy.mana }}
+            <div
+              [style.width]="(currentEnemyHP / enemy.hp) * 100 + '%'"
+              class="progress-bar"
+              [ngClass]="{
+                'bg-success': (currentEnemyHP / enemy.hp) * 100 > 50,
+                'bg-danger': (currentEnemyHP / enemy.hp) * 100 < 26,
+                'bg-warning':
+                  (currentEnemyHP / enemy.hp) * 100 < 51 &&
+                  (currentEnemyHP / enemy.hp) * 100 > 25
+              }"
+            >
+              {{ currentEnemyHP }} / {{ enemy.hp }}
+            </div>
           </div>
         </div>
       </li>
@@ -102,3 +124,4 @@
     </ul>
   </div>
 </div>
+
