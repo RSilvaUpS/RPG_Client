@@ -10,6 +10,7 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { GameComponentComponent } from './game-component/game-component.component';
 import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { BattleCompComponent } from './battle-comp/battle-comp.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
     GameComponentComponent,
     HomeComponent,
     NotFoundComponent,
+    BattleCompComponent,
   ],
   imports: [
     BrowserModule,
